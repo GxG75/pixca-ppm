@@ -1,77 +1,93 @@
 <!DOCTYPE html>
 <html lang='es'>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="shortcut icon" href="https://ruoa.unam.mx/logos/RUOA_logo.png"/>
-        <link rel="stylesheet" href="estilos.css" />
-        <script src="lib/echarts.min.js" > </script>
-        <script defer src="lib/plot.js"></script>
-        <script defer src="script.js"></script>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title> PM PEMBU</title>
-    </head>
+    <link rel="shortcut icon" href="https://ruoa.unam.mx/logos/RUOA_logo.png" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="lib/echarts.min.js"> </script>
+    <script defer src="lib/plot.js"></script>
+    <script defer src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <title> PM PEMBU</title>
+</head>
 
-    <body>
-        <div id="div_header">
-            <img class='logo' src='https://ruoa.unam.mx/logos/logo_pembu2.png' alt='Logo PEMBU' >
-            <img class='logo' src='https://ruoa.unam.mx/logos/logo_icaycc.png' alt='Logo ICAyCC' >
-            <span> <h1> Sistema de Monitoreo de Partículas </h1> </span>
-        </div>
+<body>
+    <div id="div_header">
+        <img class='logo' src='https://ruoa.unam.mx/logos/logo_pembu2.png' alt='Logo PEMBU'>
+        <img class='logo' src='https://ruoa.unam.mx/logos/logo_icaycc.png' alt='Logo ICAyCC'>
+        <span>
+            <h1> Sistema de Monitoreo de Partículas </h1>
+        </span>
+    </div>
 
-        <form action='https://ruoa.unam.mx:8042/'>
-            <input type='hidden' name='pm_api'>
+    <form action='https://ruoa.unam.mx:8042/'>
+        <input type='hidden' name='pm_api'>
 
         <div id="div_sta" class="div_sel"> Estación:
-            <label > <select id="plantel" class="selecciona" name='sid' >
-                <option disabled selected value id="a"> Selecciona</option>
-                <option value="pmpembu20230001"> pmpembu20230001 </option>
-                <option value="pmpembu20230002"> pmpembu20230002 </option>
-                <option value="pmpembu20230003"> pmpembu20230003 </option>
-                <option value="pmpembu20230004"> pmpembu20230004 </option>
-                <option value="pmpembu20230005"> pmpembu20230005 </option>
-                <option value="pmpembu20230006"> pmpembu20230006 </option>
-                <option value="pixca_ppm012"> pixca_ppm012 </option>
-                <option value="pixca_ppm013"> pixca_ppm013 </option>
-                <option value="pixca_ppm015"> pixca_ppm015 </option>
-            </select> </label>
+            <label> <select id="plantel" class="selecciona" name='sid'>
+                    <option disabled selected value id="a"> Selecciona</option>
+                    <option value="pmpembu20230001"> pmpembu20230001 </option>
+                    <option value="pmpembu20230002"> pmpembu20230002 </option>
+                    <option value="pmpembu20230003"> pmpembu20230003 </option>
+                    <option value="pmpembu20230004"> pmpembu20230004 </option>
+                    <option value="pmpembu20230005"> pmpembu20230005 </option>
+                    <option value="pmpembu20230006"> pmpembu20230006 </option>
+                    <option value="pixca_ppm012"> pixca_ppm012 </option>
+                    <option value="pixca_ppm013"> pixca_ppm013 </option>
+                    <option value="pixca_ppm015"> pixca_ppm015 </option>
+                </select> </label>
 
         </div>
 
         <div id="div_year" class="div_sel"> Año:
-            <label > <select id="year" class="selecciona" name='year' >
-                <option disabled selected value id="a"> Selecciona</option>
-            </select> </label>
+            <label> <select id="year" class="selecciona" name='year'>
+                    <option disabled selected value id="a"> Selecciona</option>
+                </select> </label>
 
         </div>
 
         <div id="div_month" class="div_sel"> Mes:
-            <label > <select id="mes" class="selecciona" name='mes' >
-                <option disabled selected value id="a"> Selecciona</option>
-            </select> </label>
+            <label> <select id="mes" class="selecciona" name='mes'>
+                    <option disabled selected value id="a"> Selecciona</option>
+                </select> </label>
 
         </div>
 
 
-        <div id="div_date" class="div_sel" > Fecha:
-            <label > <select id="Fecha" class="selecciona" name='date'>
-                <option disabled selected value id="a"> Selecciona</option>
-                <!-- <option value="2024-03-17"> 2024-03-17 </option> -->
-            </select> </label>
+        <div id="div_date" class="div_sel"> Día:
+            <label> <select id="Fecha" class="selecciona" name='date'>
+                    <option disabled selected value id="a"> Selecciona</option>
+                </select> </label>
 
         </div>
-        <div id="div_btn" class="div_sel" >
-            <input type="button" value="Graficar" id="btn_plot"/>
-            <a id="csvURL"> <input type="button" value="Descargar" id="btn_download"/></a>
-        </div>
-        </form>
-
-        <div id="div_plot">
+        <!--
+        <div class="div_sel">
+            <label for="startDate">Fecha de inicio de descarga:</label>
+            <input type="date" id="startDate" name="startDate">
         </div>
 
-    </body>
+        <div class="div_sel">
+            <label for="endDate">Fecha de fin de descarga:</label>
+            <input type="date" id="endDate" name="endDate">
+        </div>
+-->
+        <div id="div_btn" class="div_sel">
+            <input type="button" value="Graficar día" id="btn_plot" />
+            <a id="csvURL"> <input type="button" value="Descargar mes" id="btn_download" /></a>
+            <!--
+            <button id="downloadZip">Descargar ZIP</button>
+
+            js 7093 js 8975
+            -->
+        </div>
+    </form>
+
+    <div id="div_plot">
+    </div>
+
+</body>
 
 </html>
-<!-- 6910 script, 3797index -->
-<!-- 3986 index, 1347css, 6934script-->
