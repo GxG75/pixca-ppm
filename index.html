@@ -1,71 +1,126 @@
 <!DOCTYPE html>
 <html lang='es'>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="shortcut icon" href="https://ruoa.unam.mx/logos/RUOA_logo.png"/>
-        <link rel="stylesheet" href="style.css" />
-        <script src="lib/echarts.min.js" > </script>
-        <script defer src=lib/plot.js"></script>
-        <script defer src="script.js"></script>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title> PM PEMBU</title>
-    </head>
+    <link rel="shortcut icon" href="https://ruoa.unam.mx/logos/RUOA_logo.png" />
+    <link rel="stylesheet" href="style.css" />
 
-    <body>
-        <div id="div_header">
-            <img class='logo' src='https://ruoa.unam.mx/logos/logo_pembu2.png' alt='Logo PEMBU' >
-            <img class='logo' src='https://ruoa.unam.mx/logos/logo_icaycc.png' alt='Logo ICAyCC' >
-            <span> <h1> Sistema de Monitoreo de Partículas </h1> </span>
-        </div>
+    <script src="lib/echarts.min.js"> </script>
+    <script defer src="lib/plot.js"></script>
+    <script defer src="script.js"></script>
 
-        <form action='https://ruoa.unam.mx:8041/'>
-            <input type='hidden' name='pm_api'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
+    <title>PM PEMBU</title>
+</head>
+
+<body>
+    <div id="div_header">
+        <img class='logo' src='https://ruoa.unam.mx/logos/logo_pembu2.png' alt='Logo PEMBU'>
+        <img class='logo' src='https://ruoa.unam.mx/logos/logo_icaycc.png' alt='Logo ICAyCC'>
+        <span>
+            <h1>Sistema de Monitoreo de Partículas</h1>
+        </span>
+    </div>
+
+    <form action='https://ruoa.unam.mx:8042/'>
+        <input type='hidden' name='pm_api'>
         <div id="div_sta" class="div_sel"> Estación:
-            <label > <select id="plantel" class="selecciona" name='sid' >
-                <option disabled selected value id="a"> Selecciona</option>
-                <option value="pixca_ppm012"> pixca_ppm012 </option>
-                <option value="pixca_ppm013"> pixca_ppm013 </option>
-                <option value="pixca_ppm015"> pixca_ppm015 </option>
-            </select> </label>
-
+            <label><select id="plantel" class="selecciona" name='sid'>
+                    <option disabled selected value id="a">Selecciona</option>
+                    <option value="pmpembu20230001">pmpembu20230001</option>
+                    <option value="pmpembu20230002">pmpembu20230002</option>
+                    <option value="pmpembu20230003">pmpembu20230003</option>
+                    <option value="pmpembu20230004">pmpembu20230004</option>
+                    <option value="pmpembu20230005">pmpembu20230005</option>
+                    <option value="pmpembu20230006">pmpembu20230006</option>
+                    <option value="pixca_ppm012">pixca_ppm012</option>
+                    <option value="pixca_ppm013">pixca_ppm013</option>
+                    <option value="pixca_ppm015">pixca_ppm015</option>
+                </select> </label>
         </div>
 
-        <div id="div_year" class="div_sel"> Año:
-            <label > <select id="year" class="selecciona" name='year' >
-                <option disabled selected value id="a"> Selecciona</option>
-            </select> </label>
+<!--
+        
+<div id="div_year" class="div_sel"> Año:
+            <label> <select id="year" class="selecciona" name='year'>
+                    <option disabled selected value id="a"> Selecciona</option>
+                </select> </label>
 
         </div>
 
         <div id="div_month" class="div_sel"> Mes:
-            <label > <select id="mes" class="selecciona" name='mes' >
-                <option disabled selected value id="a"> Selecciona</option>
-            </select> </label>
+            <label> <select id="mes" class="selecciona" name='mes'>
+                    <option disabled selected value id="a"> Selecciona</option>
+                </select> </label>
 
         </div>
 
 
-        <div id="div_date" class="div_sel" > Fecha:
-            <label > <select id="Fecha" class="selecciona" name='date'>
-                <option disabled selected value id="a"> Selecciona</option>
-                <!-- <option value="2024-03-17"> 2024-03-17 </option> -->
-            </select> </label>
+        <div id="div_date" class="div_sel"> Fecha:
+            <label> <select id="Fecha" class="selecciona" name='date'>
+                    <option disabled selected value id="a"> Selecciona</option>
+
+                </select> </label>
 
         </div>
-        <div id="div_btn" class="div_sel" >
-            <input type="button" value="Graficar" id="btn_plot"/>
-            <input type="submit" value="Descargar" id="btn_download"/>
+<!-- -->
+        
+        <div id="calendar-container">
+            <div id="calendar-header">
+                <button id="prev-month">&lt;</button>
+                <span id="month-year"></span>
+                <button id="next-month">&gt;</button>
+            </div>
+            <div id="day-names">
+                <div>Dom</div>
+                <div>Lun</div>
+                <div>Mar</div>
+                <div>Mié</div>
+                <div>Jue</div>
+                <div>Vie</div>
+                <div>Sáb</div>
+            </div>
+            <div id="days"></div>
         </div>
-        </form>
 
-        <div id="div_plot">
+        <div id="div_btn" class="div_sel">
+
+            <input type="button" value="Graficar" id="btn_plot" />
+            <!--
+            <a id="csvURL"> <input type="button" value="Descargar" id="btn_download" /></a>
+            -->
+            <button id="downloadZip">Descargar</button>
+
         </div>
 
-    </body>
+        <div id="month-select-container"> Selecciona un mes:
+            <select id="month-select">
+                <option disabled selected value id="a">Selecciona</option>
+                <option value="0">Enero</option>
+                <option value="1">Febrero</option>
+                <option value="2">Marzo</option>
+                <option value="3">Abril</option>
+                <option value="4">Mayo</option>
+                <option value="5">Junio</option>
+                <option value="6">Julio</option>
+                <option value="7">Agosto</option>
+                <option value="8">Septiembre</option>
+                <option value="9">Octubre</option>
+                <option value="10">Noviembre</option>
+                <option value="11">Diciembre</option>
+            </select>
+            <a id="csvURL"> <input type="button" value="Descargar mes" id="btn_download_month" /></a>
+        </div>
+
+    </form>
+
+</body>
 
 </html>
-<!-- 6910 script, 3797index -->
-<!-- 3986 index, 1347css, 6934script-->
+
+<!-- 10569 js -->
